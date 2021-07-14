@@ -21,7 +21,9 @@ import java.util.List;
 @RequestMapping(value="/loggerMenu")
 public class loggerController {
 
+    //logger
     private static final Logger logger = LoggerFactory.getLogger(loggerController.class);
+
 
     @Autowired
     private loggerService loggersercice;
@@ -31,15 +33,17 @@ public class loggerController {
      * @param
      * @return
      * */
-    @RequestMapping(value="/loggerList",method = RequestMethod.POST)
-    public ResponseEntity<?> loggerList(HttpServletRequest req, HttpServletResponse res) throws Exception{
+    @RequestMapping(value="/checkStructure",method = RequestMethod.POST)
+    public ResponseEntity<CommonResponse> checkStructure(HttpServletRequest req, HttpServletResponse res) throws Exception{
 
 
-        System.out.println(loggersercice.getLoggerList());
+        int response = loggersercice.getLoggerList();
 
-        return ResponseEntity
-                .ok()
-                .build();
+        return ResponseEntity.ok(CommonResponse.builder()
+                .data(response)
+                .status("SUCCESS")
+                .msg("structure test")
+                .build());
     }
 
 
@@ -58,6 +62,9 @@ public class loggerController {
                             .status("SUCCESS")
                             .build());
     }
+
+
+
 
 
 

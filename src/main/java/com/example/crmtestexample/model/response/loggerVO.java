@@ -2,6 +2,10 @@ package com.example.crmtestexample.model.response;
 
 import lombok.*;
 import org.apache.ibatis.type.Alias;
+import com.example.crmtestexample.model.response.logTraceVO;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
+
+import java.util.Map;
 
 @Getter
 @Setter
