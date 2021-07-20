@@ -56,12 +56,34 @@ public class loggerController {
     public ResponseEntity<CommonResponse> loggerGidList(HttpServletRequest req, HttpServletResponse res) throws Exception{
 
         List<loggerVO> response = loggersercice.getLoggerGridList();
+        Long processCnt = Long.parseLong(response.get(0).totalCnt);
 
         return ResponseEntity.ok(CommonResponse.builder()
                             .data(response)
                             .status("SUCCESS")
+                            .processCnt(processCnt)
                             .build());
     }
+
+    /* *
+     *  Logger 삭제
+     * @param Array
+     * @return int
+     * */
+    @RequestMapping(value="/loggerDeleteRow",method = RequestMethod.GET)
+    public ResponseEntity<CommonResponse> loggerRowDelete(HttpServletRequest req, HttpServletResponse res) throws Exception{
+
+        List<loggerVO> response = loggersercice.getLoggerGridList();
+        Long processCnt = Long.parseLong(response.get(0).totalCnt);
+
+        return ResponseEntity.ok(CommonResponse.builder()
+                .data(response)
+                .status("SUCCESS")
+                .processCnt(processCnt)
+                .build());
+    }
+
+
 
 
 

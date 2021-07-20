@@ -14,6 +14,7 @@ import java.util.Map;
 @AllArgsConstructor
 @Alias("loggerVo")
 public class loggerVO {
+    public String totalCnt;
     public String id;
     public String alertYn;
     public String errorTime;

@@ -16,15 +16,27 @@ public class loggerServiceImpl implements loggerService {
     @Autowired
     private loggerDao logerDao;
 
+    /**
+     * Structure Example
+     * */
     @Override
     public int getLoggerList() {
 
         return logerDao.getLoggerList();
     }
 
+    /**
+     * Logger Grid List
+     * */
     @Override
     public List<loggerVO> getLoggerGridList() {
 
         return logerDao.getLoggerGridList();
+    }
+
+    
+    @Override
+    public void deleteRowList() {
+
     }
 }

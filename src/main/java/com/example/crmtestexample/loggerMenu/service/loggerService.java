@@ -13,4 +13,7 @@ public interface loggerService {
     //Logger Grid List
     public List<loggerVO> getLoggerGridList();
 
+    //Logger Delete Row
+    public void deleteRowList();
+
 }

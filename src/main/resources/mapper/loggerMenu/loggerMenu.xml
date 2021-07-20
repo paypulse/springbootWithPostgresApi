@@ -19,6 +19,7 @@
     <select id="getLoggerGridList" resultType="loggerVo">
         <![CDATA[
             select
+                count(*) over() as totalCnt,
                 A.id as id,
                 A.alert_yn as alertYn,
                 A.error_datetime as errorTime,
