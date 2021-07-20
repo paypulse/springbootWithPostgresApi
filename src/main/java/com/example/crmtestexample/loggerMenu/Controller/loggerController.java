@@ -1,6 +1,7 @@
 package com.example.crmtestexample.loggerMenu.Controller;
 
 
+import com.example.crmtestexample.model.request.loggerRequest;
 import com.example.crmtestexample.model.response.CommonResponse;
 import com.example.crmtestexample.loggerMenu.service.loggerService;
 import com.example.crmtestexample.model.response.loggerVO;
@@ -70,16 +71,15 @@ public class loggerController {
      * @param Array
      * @return int
      * */
-    @RequestMapping(value="/loggerDeleteRow",method = RequestMethod.GET)
-    public ResponseEntity<CommonResponse> loggerRowDelete(HttpServletRequest req, HttpServletResponse res) throws Exception{
+    @RequestMapping(value="/loggerDeleteRow",method = RequestMethod.POST)
+    public ResponseEntity<CommonResponse> loggerRowDelete(HttpServletRequest req, HttpServletResponse res, @RequestBody loggerRequest param) throws Exception{
 
-        List<loggerVO> response = loggersercice.getLoggerGridList();
-        Long processCnt = Long.parseLong(response.get(0).totalCnt);
+        loggersercice.deleteRowList(param);
 
         return ResponseEntity.ok(CommonResponse.builder()
-                .data(response)
+                .data("{}")
                 .status("SUCCESS")
-                .processCnt(processCnt)
+                .processCnt(1)
                 .build());
     }
 

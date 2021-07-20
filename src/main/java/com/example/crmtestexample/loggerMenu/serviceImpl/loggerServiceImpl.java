@@ -2,11 +2,14 @@ package com.example.crmtestexample.loggerMenu.serviceImpl;
 
 import com.example.crmtestexample.loggerMenu.domain.loggerDao;
 import com.example.crmtestexample.loggerMenu.service.loggerService;
+import com.example.crmtestexample.model.request.loggerRequest;
 import com.example.crmtestexample.model.response.loggerVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -34,9 +37,14 @@ public class loggerServiceImpl implements loggerService {
         return logerDao.getLoggerGridList();
     }
 
-    
+
     @Override
-    public void deleteRowList() {
+    public void deleteRowList(loggerRequest param) {
+
+       for(int i=0;i<param.getLoggerId().size();i++){
+           logerDao.loggerDeleteRow(Integer.parseInt(param.getLoggerId().get(i)));
+       }
+
 
     }
 }

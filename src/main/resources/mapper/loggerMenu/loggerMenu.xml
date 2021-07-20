@@ -41,6 +41,12 @@
     </select>
 
     <!--Log 삭제 -->
+    <delete id="loggerDeleteRow" parameterType="Int">
+        <![CDATA[
+        delete from public."TB_ERP_ERRLOG" as a
+        where a.id in (#{loggerId})
+        ]]>
+    </delete>
 
 
 

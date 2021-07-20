@@ -9,10 +9,14 @@ import java.util.List;
 public interface loggerDao {
 
 
-    //Logger List
+    //Logger structure Test
     public  int getLoggerList();
 
 
+    //Logger Grid List
     public List<loggerVO> getLoggerGridList();
+
+    //Logger Delete row
+    public int loggerDeleteRow(Integer loggerId);
 
 }
