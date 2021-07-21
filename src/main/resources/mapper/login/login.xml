@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.crmtestexample.Login.domain.loginDao">
+
+
+
+    <select id="checkUserId" parameterType="String" resultType="Int">
+       <![CDATA[
+            select
+                count(*) over() as LoginCnt
+            from public."TB_ERP_USER000" as A
+            where A.user_cd = #{uid}
+        ]]>
+    </select>
+
+    <select id="checkUserIDandPw" parameterType="java.util.HashMap" resultType="Int">
+        <![CDATA[
+        select
+            case when cnt is NULL  then COALESCE(cnt, 0)
+                 else cnt end as tCnt
+        from(
+                select count(*) as cnt
+                from
+                    public."TB_ERP_USER000" teu
+                where teu.user_cd=#{id} and  teu.user_ps2 =#{pw}) as A
+        ]]>
+    </select>
+
+
+
+</mapper>
