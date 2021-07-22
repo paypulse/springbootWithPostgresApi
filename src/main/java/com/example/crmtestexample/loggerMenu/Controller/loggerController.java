@@ -37,7 +37,7 @@ public class loggerController {
     @RequestMapping(value="/checkStructure",method = RequestMethod.POST)
     public ResponseEntity<CommonResponse> checkStructure(HttpServletRequest req, HttpServletResponse res) throws Exception{
 
-
+        logger.info("***** check structure ****");
         int response = loggersercice.getLoggerList();
 
         return ResponseEntity.ok(CommonResponse.builder()

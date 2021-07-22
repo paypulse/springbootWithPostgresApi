@@ -89,10 +89,16 @@
             <scope>test</scope>
         </dependency>
         <!--Spring Security-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--            <version>2.1.12.RELEASE</version>-->
+<!--        </dependency>-->
+        <!--Logger -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <version>2.1.12.RELEASE</version>
+            <groupId>org.lazyluke</groupId>
+            <artifactId>log4jdbc-remix</artifactId>
+            <version>0.2.7</version>
         </dependency>
 
     </dependencies>

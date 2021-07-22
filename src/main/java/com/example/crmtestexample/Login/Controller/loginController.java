@@ -9,15 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class loginController {
 
@@ -37,15 +35,24 @@ public class loginController {
     @RequestMapping(value="/login",method = RequestMethod.POST)
     public ResponseEntity<CommonResponse> checkIdPw(HttpServletRequest req, HttpServletResponse res, @RequestBody loginRequest param ) throws Exception{
 
-        System.out.println(param);
+        int result = loginService.checkLogin(param.getId(), param.getPw());
+        CommonResponse commonResponse = new CommonResponse();
 
-        String result = loginService.checkLogin(param.getId(), param.getPw());
+        if(result == 1){
+            commonResponse.setData(result);
+            commonResponse.setMsg("로그인 성공");
+            commonResponse.setStatus("SUCCESS");
+        }else if(result == 2){
+            commonResponse.setData(result);
+            commonResponse.setMsg("존재 하지 않는 계정 입니다.");
+            commonResponse.setStatus("SUCCESS");
+        }else if(result == 3){
+            commonResponse.setData(result);
+            commonResponse.setMsg("비밀번호가 틀렸습니다.");
+            commonResponse.setStatus("SUCCESS");
+        }
 
-        return ResponseEntity.ok(CommonResponse.builder()
-                .data(result)
-                .status("SUCCESS")
-                .msg("structure test")
-                .build());
+        return ResponseEntity.ok(commonResponse);
     }
 
 

@@ -9,9 +9,11 @@
     <select id="checkUserId" parameterType="String" resultType="Int">
        <![CDATA[
             select
-                count(*) over() as LoginCnt
-            from public."TB_ERP_USER000" as A
-            where A.user_cd = #{uid}
+                case when  count(*)  is null then COALESCE(count(*) over(),0)
+                     else  count(*)  end as test
+            from public."TB_ERP_USER000" teu
+            where teu.user_cd=#{uid}
+
         ]]>
     </select>
 
