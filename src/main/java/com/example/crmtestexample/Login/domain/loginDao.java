@@ -1,5 +1,6 @@
 package com.example.crmtestexample.Login.domain;
 
+import com.example.crmtestexample.model.response.UserLoginVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
@@ -18,6 +19,10 @@ public interface loginDao {
      * **/
     public int checkUserIDandPw(Map<String, String> idpw);
 
+    /**
+     * Login User Info
+     * */
+    public UserLoginVO selectUser(String uid);
 
 
 

@@ -30,6 +30,32 @@
         ]]>
     </select>
 
+    <select id="selectUser" parameterType="String" resultType="UserLoginVO">
+        <![CDATA[
+            select
+                A.user_cd as userCd,
+                A.user_type as userType,
+                A.decision_yn as decisionYn,
+                A.user_nm as userNm,
+                A.area_cd as areaCd,
+                A.org_class as orgClass,
+                A.org_cd as orgCd,
+                A.rank_cd as rankCd,
+                A.hp_no as hpNo,
+                A.tel_no as telNo,
+                A.birthday as birthDay,
+                A.zipcode as zipCode,
+                A.address1 as addr1,
+                A.address2 as addr2,
+                A.user_status as userStatus,
+                A.menu_grp_cd as menuGrpCd,
+                A.cust_cd as custCd,
+                A.child_cd as childCd
+            from public."TB_ERP_USER000" as A
+            where A.user_cd =#{uid}
+        ]]>
+    </select>
+
 
 
 </mapper>

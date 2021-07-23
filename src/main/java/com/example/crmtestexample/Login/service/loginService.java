@@ -10,6 +10,6 @@ public interface loginService {
      * @param
      * @return
      * */
-    public int  checkLogin(String id, String pw);
+    public Map<String,Object>  checkLogin(String id, String pw);
 
 }

@@ -24,8 +24,10 @@ public class loginServiceImpl implements loginService {
      * @return
      * */
     @Override
-    public int checkLogin(String id, String pw) {
+    public Map<String,Object> checkLogin(String id, String pw) {
         Map<String,String> req = new HashMap<>();
+        Map<String,Object> resultMap = new HashMap<>();
+
         req.put("id",id);
         req.put("pw",pw);
 
@@ -37,15 +39,19 @@ public class loginServiceImpl implements loginService {
            int pwCheck = loginDao.checkUserIDandPw(req);
            if(pwCheck<1){
                result = 3;
+               resultMap.put("loginYN",result);
            }else{
+               //로그인 성공
                result = 1;
+               resultMap.put("loginYN",result);
+               resultMap.put("userInfo",loginDao.selectUser(id));
            }
-
         }else{
             result = 2;
+            resultMap.put("loginYN",result);
         }
 
-        return result;
+        return resultMap;
     }
 
 }
