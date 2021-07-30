@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.crmtestexample.UserInfo.Domain.userInfoDao">
+
+    <!-- select boxes -->
+    <select id="areaSelectBox" resultType="commonCode">
+        <![CDATA[
+            select a.area_nm as codeNm,
+                   a.location_cd as codeCd
+            from public."TB_ERP_AREA000" a
+        ]]>
+    </select>
+    <select id="goodSelectBox" resultType="commonCode">
+        <![CDATA[
+            select
+                B.goods_cd as codeCd,
+                B.goods_nm as codeNm
+            from public."TB_ERP_USER000" A  ,public."TB_ERP_GOODS000" B
+            where A.user_cd = B.UPDATED_BY
+        ]]>
+    </select>
+    <select id="paymentSelectBox" resultType="commonCode">
+        <![CDATA[
+            select
+                a.sub_code as codeCd ,
+                a.sub_name as codeNm
+            from public."TB_ERP_CODE100_BACKUP" a
+            where a.main_code = 'PAYMENT_YN'
+        ]]>
+    </select>
+    <select id="onlineStudySelectBox" resultType="commonCode">
+        <![CDATA[
+            select a.sub_code as codeCd,
+                   a.sub_name as codeNm
+            from public."TB_ERP_CODE100_BACKUP" a
+            where a.main_code  = 'ONLINE_SERVICE_STATUS'
+        ]]>
+    </select>
+    <select id="visitStudySelectBox" resultType="commonCode">
+        <![CDATA[
+            select
+                a.sub_code as codeCd,
+                a.sub_name as codeNm
+            from public."TB_ERP_CODE100_BACKUP" a
+            where a.main_code ='VISIT_SERVICE_STATUS'
+        ]]>
+    </select>
+
+    <!-- select boxes-->
+
+</mapper>
