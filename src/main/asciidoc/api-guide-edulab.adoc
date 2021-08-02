@@ -1,0 +1,24 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectnums:
+:sectlinks:
+:sectanchors:
+
+
+[[resources]]
+= Resources
+
+[[resources-loggerStructureTest]]
+== loggerStructureTest
+
+[[resources-sampleStructureTest]]
+=== logger Struncture response
+include::{snippets}/loggerStructureTest/http-request.adoc[]
+include::{snippets}/loggerStructureTest/http-response.adoc[]
+:: response
+include::{snippets}/loggerStructureTest/response-fields.adoc[]
