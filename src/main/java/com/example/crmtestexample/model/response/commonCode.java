@@ -12,4 +12,5 @@ import org.apache.ibatis.type.Alias;
 public class commonCode {
     public String codeCd;
     public String codeNm;
+
 }

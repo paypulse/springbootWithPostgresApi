@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.crmtestexample.common.fileUtils.domain.fileUtilDao">
+
+    <!-- single file upload -->
+    <insert id="singleFileUpload" parameterType="com.example.crmtestexample.model.request.fileUtilRequest">
+        <![CDATA[
+            INSERT INTO public."TB_ERP_FILE"
+            VALUES(
+                   0,
+               #{filetype},
+               #{filename},
+               #{fileoriname},
+               #{filepath},
+               #{fileMakeUser},
+               now(),
+               #{fileMakeUser},
+               now()
+            )
+
+
+        ]]>
+    </insert>
+
+</mapper>
