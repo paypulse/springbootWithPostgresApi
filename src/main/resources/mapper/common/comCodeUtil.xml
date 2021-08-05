@@ -7,14 +7,28 @@
     <select id="selectComCodeList" resultType="comCodeUtilVO">
         <![CDATA[
             select
-                a.main_code as mainCode,
-                a.sub_code as subCode,
-                a.sub_name as subCodeNm,
-                a.created_by as createdBy,
-                a.created_at as createdAt,
-                a.updated_at as updatedAt,
-                a.updated_by as updatedBy
-            from public."TB_ERP_CODE100_BACKUP" a
+                row_number() over() as rnum,
+                b.main_code as mainCode,
+                a.main_name as mainCdNm,
+                b.sub_code  as subCode,
+                b.sub_name  as subCodeNm,
+                b.created_at as createdAt,
+                b.created_by as createdBy,
+                b.updated_at as updatedAt,
+                b.updated_by as updatedBy,
+                b.use_yn as useYn
+            from public."TB_ERP_CODE000" a, public."TB_ERP_CODE100_BACKUP" b
+            where a.main_code  = b.main_code
+        ]]>
+    </select>
+
+    <!-- comcode 중복 체크 -->
+    <select id="selectCheckMainCd" parameterType="String" resultType="Int">
+        <![CDATA[
+            select
+                count (*) as cnt
+            from public."TB_ERP_CODE000" a
+            where a.main_code  = #{main_code}
         ]]>
     </select>
 

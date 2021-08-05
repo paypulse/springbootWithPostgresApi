@@ -12,11 +12,14 @@ import org.apache.ibatis.type.Alias;
 @AllArgsConstructor
 @Alias("comCodeUtilVo")
 public class comCodeUtilVO {
+    public String  rnum;
     public String  mainCode;
+    public String  mainCdNm;
     public String  subCode;
     public String  subCodeNm;
     public String  createdBy;
     public String  createdAt;
     public String  updatedBy;
     public String  updatedAt;
+    public String  useYn;
 }

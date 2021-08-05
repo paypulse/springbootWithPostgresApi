@@ -13,4 +13,10 @@ public interface comCodeUtilDao {
      * */
     List<comCodeUtilVO> selectComCodeList();
 
+    /**
+     * comCode 중복 체크
+     * */
+    int selectCheckMainCd(String main_code);
+
+
 }
