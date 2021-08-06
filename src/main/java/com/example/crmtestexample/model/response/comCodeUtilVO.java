@@ -22,4 +22,5 @@ public class comCodeUtilVO {
     public String  updatedBy;
     public String  updatedAt;
     public String  useYn;
+    public String  sort;
 }

@@ -31,9 +31,9 @@ public class comCodeUtilController {
      * 공통 코드 조회
      * @param
      * @return
-     * */
-    @RequestMapping(value="/selectComCode", method = RequestMethod.GET)
-    public ResponseEntity<CommonResponse> selectComCode(HttpServletRequest req, HttpServletResponse res){
+     */
+    @RequestMapping(value = "/selectComCode", method = RequestMethod.GET)
+    public ResponseEntity<CommonResponse> selectComCode(HttpServletRequest req, HttpServletResponse res) {
 
 
         return ResponseEntity.ok(CommonResponse.builder()
@@ -45,13 +45,13 @@ public class comCodeUtilController {
 
     /**
      * 공통 코드 중복 체크
-     * @param
+     * @param mainCd
      * @return
-     * **/
-    @RequestMapping(value="/selectCheckMainCd", method = RequestMethod.GET)
-    public ResponseEntity<CommonResponse> selectCheckMainCd(HttpServletRequest req, HttpServletResponse res, @RequestParam("mainCode") String mainCd){
+     **/
+    @RequestMapping(value = "/selectCheckMainCd", method = RequestMethod.GET)
+    public ResponseEntity<CommonResponse> selectCheckMainCd(HttpServletRequest req, HttpServletResponse res, @RequestParam("mainCode") String mainCd) {
 
-        Map<String,Object> result = comcodeUtilService.selectCheckMainCd(mainCd);
+        Map<String, Object> result = comcodeUtilService.selectCheckMainCd(mainCd);
 
         return ResponseEntity.ok(CommonResponse.builder()
                 .data(result.get("data"))
@@ -62,15 +62,58 @@ public class comCodeUtilController {
 
     /**
      * 공통코드 추가.
-     * @param
+     * @param comReq
      * @return
-     * */
-    @RequestMapping(value="/insertComCode", method = RequestMethod.POST)
-    public ResponseEntity<CommonResponse> insertComCode(HttpServletRequest req, HttpServletResponse res, @RequestBody comCodeUtilRequest comReq){
+     */
+    @RequestMapping(value = "/insertComCode", method = RequestMethod.POST)
+    public ResponseEntity<CommonResponse> insertComCode(HttpServletRequest req, HttpServletResponse res, @RequestBody comCodeUtilRequest comReq) {
 
-        System.out.println("comReq: "+comReq);
+        Map<String, Object> result = comcodeUtilService.insertComCode(comReq);
 
-        return null;
+        return ResponseEntity.ok(CommonResponse.builder()
+                .data(result.get("data"))
+                .status("SUCCESS")
+                .msg((String) result.get("message"))
+                .build());
     }
 
-}
+    /**
+     * 공통 코드 수정
+     * @param comReq
+     * @return
+     */
+    @RequestMapping(value = "/updateComCode", method = RequestMethod.POST)
+    public ResponseEntity<CommonResponse> updateComCode(HttpServletRequest req, HttpServletResponse res, @RequestBody comCodeUtilRequest comReq) {
+
+        System.out.println(comReq);
+        Map<String,Object> result = comcodeUtilService.updateComCode(comReq);
+
+
+        return ResponseEntity.ok(CommonResponse.builder()
+                .data(result.get("data"))
+                .status("SUCCESS")
+                .msg((String) result.get("message"))
+                .build());
+    }
+
+    /**
+     * 공통 코드 삭제
+     * @param mainCode, subCode
+     * @return
+     * */
+    @RequestMapping(value = "/deleteComCode", method = RequestMethod.POST)
+    public ResponseEntity<CommonResponse> deleteComCode(HttpServletRequest req, HttpServletResponse res, @RequestParam("mainCode") String mainCode, @RequestParam("subCode") String subCode) {
+
+        Map<String,Object> result = comcodeUtilService.deleteComCode(mainCode,subCode);
+
+        return ResponseEntity.ok(CommonResponse.builder()
+                .data(result.get("data"))
+                .status("SUCCESS")
+                .msg((String) result.get("message"))
+                .build());
+    }
+
+
+
+
+    }

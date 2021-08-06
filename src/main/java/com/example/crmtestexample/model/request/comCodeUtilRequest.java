@@ -17,5 +17,5 @@ public class comCodeUtilRequest {
     private String subCode;
     private String subCodeNm;
     private String useYn;
-
+    private int sort;
 }

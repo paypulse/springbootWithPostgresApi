@@ -3,22 +3,39 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.crmtestexample.common.comCodeUtil.domain.comCodeUtilDao">
+
+
+
     <!-- comcode list 조회  -->
     <select id="selectComCodeList" resultType="comCodeUtilVO">
         <![CDATA[
             select
-                row_number() over() as rnum,
-                b.main_code as mainCode,
-                a.main_name as mainCdNm,
-                b.sub_code  as subCode,
-                b.sub_name  as subCodeNm,
-                b.created_at as createdAt,
-                b.created_by as createdBy,
-                b.updated_at as updatedAt,
-                b.updated_by as updatedBy,
-                b.use_yn as useYn
-            from public."TB_ERP_CODE000" a, public."TB_ERP_CODE100_BACKUP" b
-            where a.main_code  = b.main_code
+                row_number() over() rnum,
+                    c.*
+            from (
+                     select
+                         b.main_code as mainCode,
+                         a.main_name as mainCdNm,
+                         b.sub_code  as subCode,
+                         b.sub_name  as subCodeNm,
+                         b.created_at as createdAt,
+                         b.created_by as createdBy,
+                         b.updated_at as updatedAt,
+                         b.updated_by as updatedBy,
+                         b.use_yn as useYn,
+                         b.sort as sort
+                     from public."TB_ERP_CODE000" a, public."TB_ERP_CODE100_BACKUP" b
+                     where a.main_code  = b.main_code
+                     order by a.created_at desc) as c
+        ]]>
+    </select>
+
+    <!-- comCode100 count -->
+    <select id="selectCode100Cnt" parameterType="String" resultType="Int">
+        <![CDATA[
+            select count(*)
+            from public."TB_ERP_CODE100_BACKUP" a
+            where a.main_code = #{mainCode}
         ]]>
     </select>
 
@@ -32,7 +49,105 @@
         ]]>
     </select>
 
-    <!-- comcode list 삭제 -->
+    <!-- comCode 추가 -->
+    <insert id="insertComCode000" parameterType="comCodeUtilRequest">
+        <![CDATA[
+            insert into public."TB_ERP_CODE000"
+            (
+                main_code,
+                main_name,
+                remark,
+                use_yn,
+                created_at,
+                created_by,
+                updated_at,
+                updated_by
+            )
+            values(
+                #{mainCode},
+                #{mainCdNm},
+                '',
+                #{useYn},
+                to_char(now(), 'YYYY-MM-DD HH24:MI:SS'),
+                #{userId},
+                to_char(now(), 'YYYY-MM-DD HH24:MI:SS'),
+                #{userId})
+        ]]>
+    </insert>
 
-    <!-- comcode list 추가 -->
+    <insert id="insertComCode100" parameterType="comCodeUtilRequest">
+        <![CDATA[
+            insert into public."TB_ERP_CODE100_BACKUP"
+            (
+                main_code,
+                sub_code,
+                sub_name,
+                sort,
+                data1,
+                data2,
+                data3,
+                data4,
+                data5,
+                remark,
+                use_yn,
+                created_at,
+                created_by,
+                updated_at,
+                updated_by
+            ) values (
+                #{mainCode},
+                #{subCode},
+                #{subCodeNm},
+                #{sort},
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                #{useYn},
+                to_char(now(), 'YYYY-MM-DD HH24:MI:SS'),
+                #{userId},
+                to_char(now(), 'YYYY-MM-DD HH24:MI:SS'),
+                #{userId}
+            )
+        ]]>
+    </insert>
+
+    <!-- comcode list 수정 -->
+    <update id="updateComCode000" parameterType="comCodeUtilRequest">
+        <![CDATA[
+            update public."TB_ERP_CODE000"
+            set main_name = #{mainCdNm},
+                use_yn =#{useYn}
+            where main_code = #{mainCode}
+        ]]>
+    </update>
+    <update id="updateComCode100" parameterType="comCodeUtilRequest">
+        <![CDATA[
+            update public."TB_ERP_CODE100_BACKUP"
+            set sub_name= #{subCodeNm},
+                sort = #{sort},
+                use_yn= #{useYn},
+                updated_at = to_char(now(), 'YYYY-MM-DD HH24:MI:SS')
+            where main_code =#{mainCode} and sub_code =#{subCode}
+        ]]>
+    </update>
+
+    <!-- comcode list 삭제 -->
+    <delete id="deleteCode100" parameterType="hashMap">
+        <![CDATA[
+            delete from public."TB_ERP_CODE100_BACKUP" as a
+            where a.main_code = #{mainCode} and a.sub_code = #{subCode}
+        ]]>
+    </delete>
+    <delete id="deleteCode000" parameterType="hashMap">
+        <![CDATA[
+            delete from public."TB_ERP_CODE000" as a
+            where a.main_code = #{mainCode}
+        ]]>
+    </delete>
+
+
+
 </mapper>

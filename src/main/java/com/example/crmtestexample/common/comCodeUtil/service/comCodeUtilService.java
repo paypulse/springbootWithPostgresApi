@@ -20,17 +20,31 @@ public interface comCodeUtilService {
 
     /**
      * 공통 코드 중복 체크
-     *  @param
+     *  @param mainCd
      *  @return
      * **/
     public Map<String,Object> selectCheckMainCd(String mainCd);
 
     /**
-     *
-     * 공통코드 추가.
-     *  @param
+     * 공통코드 신규 추가.
+     *  @param comReq
      *  @return
      * **/
     public Map<String,Object> insertComCode(comCodeUtilRequest comReq);
+
+    /**
+     * 공통코드 수정
+     * @param comReq
+     * @return
+     * */
+    public Map<String,Object> updateComCode(comCodeUtilRequest comReq);
+
+    /**
+     * 공통코드 삭제
+     * @param mainCode,subCode
+     * @return
+     * */
+    public Map<String,Object> deleteComCode(String mainCode, String subCode);
+
 
 }
