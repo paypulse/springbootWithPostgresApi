@@ -45,6 +45,7 @@ public class loginServiceImpl implements loginService {
                result = 1;
                resultMap.put("loginYN",result);
                resultMap.put("userInfo",loginDao.selectUser(id));
+               resultMap.put("token","");
            }
         }else{
             result = 2;
