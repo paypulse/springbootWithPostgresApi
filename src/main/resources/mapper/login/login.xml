@@ -17,16 +17,16 @@
         ]]>
     </select>
 
-    <select id="checkUserIDandPw" parameterType="java.util.HashMap" resultType="Int">
+    <select id="checkUserIDandPw" parameterType="userVO" resultType="Int">
         <![CDATA[
-        select
-            case when cnt is NULL  then COALESCE(cnt, 0)
-                 else cnt end as tCnt
-        from(
-                select count(*) as cnt
-                from
-                    public."TB_ERP_USER000" teu
-                where teu.user_cd=#{id} and  teu.user_ps2 =#{pw}) as A
+            select
+                case when cnt is NULL  then COALESCE(cnt, 0)
+                     else cnt end as tCnt
+            from(
+                    select count(*) as cnt
+                    from
+                        public."TB_ERP_USER000" teu
+                    where teu.user_cd=#{userCd} and  teu.user_ps2 =#{userPs}) as A
         ]]>
     </select>
 
