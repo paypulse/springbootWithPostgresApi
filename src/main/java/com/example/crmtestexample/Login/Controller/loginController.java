@@ -41,17 +41,13 @@ public class loginController {
     @RequestMapping(value="/login",method = RequestMethod.POST)
     public ResponseEntity<CommonResponse> checkIdPw(HttpServletRequest req, HttpServletResponse res, @RequestBody loginRequest param ) throws Exception{
 
-
         Map<String,Object> result = loginService.checkLogin(param.getId(), param.getPw());
 
-        logger.info("result :::", result);
         if(!result.get("token").equals("")){
 
             res.setHeader("jwtAuthToken",result.get("token").toString());
 
         }
-
-
 
         return ResponseEntity.ok(CommonResponse.builder()
                 .data(result.get("data"))

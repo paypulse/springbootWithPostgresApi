@@ -1,12 +1,10 @@
-#JDK
-FROM java:8
+FROM tomcat:8.5.46-jdk8
 
-#실행 경로
-WORKDIR /etc/
+RUN cd /usr/local/tomcat/webapps/
+COPY ./target/crmTestExample-0.0.1.war  /usr/local/tomcat/webapps/crmTestExample-0.0.1.war
 
-ARG JAR_FILE=target/crmTestExample-0.0.1.war
 
-COPY ${JAR_FILE} app.war
+CMD ["/usr/local/tomcat/bin/startup.sh", "run"]
 
 
 
