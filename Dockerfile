@@ -1,4 +1,4 @@
-FROM alpine:3.2
+FROM alpine:3.8
 
 ENV TZ 'Asia/Seoul'
 ENV JAVA_OPTS=""
@@ -8,8 +8,8 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE  en_US:en
 
 RUN apk add curl && \
-    apk add vim && \
-    apk add zip && \
+    apk add vim  && \
+    apk add zip  && \
     apk add unzip
 
 RUN mkdir -p /crmTestExample \
