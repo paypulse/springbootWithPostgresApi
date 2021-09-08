@@ -6,12 +6,10 @@ ENV DOC_ROOT /crmTestExample
 ENV VER=1.0
 ENV LANG en_US.UTF-8
 ENV LANGUAGE  en_US:en
-
 RUN apk add curl && \
     apk add vim  && \
     apk add zip  && \
     apk add unzip
-
 RUN mkdir -p /crmTestExample \
              /Logs
 
