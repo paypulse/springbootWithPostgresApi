@@ -3,14 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.crmtestexample.UserInfo.Domain.userInfoDao">
 
-    <!-- select boxes -->
-    <select id="areaSelectBox" resultType="commonCode">
-        <![CDATA[
-            select a.area_nm as codeNm,
-                   a.location_cd as codeCd
-            from public."TB_ERP_AREA000" a
-        ]]>
-    </select>
+
     <select id="goodSelectBox" resultType="commonCode">
         <![CDATA[
             select
@@ -20,33 +13,43 @@
             where A.user_cd = B.UPDATED_BY
         ]]>
     </select>
-    <select id="paymentSelectBox" resultType="commonCode">
-        <![CDATA[
-            select
-                a.sub_code as codeCd ,
-                a.sub_name as codeNm
-            from public."TB_ERP_CODE100_BACKUP" a
-            where a.main_code = 'PAYMENT_YN'
-        ]]>
-    </select>
+
     <select id="onlineStudySelectBox" resultType="commonCode">
         <![CDATA[
-            select a.sub_code as codeCd,
-                   a.sub_name as codeNm
-            from public."TB_ERP_CODE100_BACKUP" a
-            where a.main_code  = 'ONLINE_SERVICE_STATUS'
-        ]]>
-    </select>
-    <select id="visitStudySelectBox" resultType="commonCode">
-        <![CDATA[
-            select
-                a.sub_code as codeCd,
-                a.sub_name as codeNm
-            from public."TB_ERP_CODE100_BACKUP" a
-            where a.main_code ='VISIT_SERVICE_STATUS'
+            select b.sub_code as codeCd,
+                   b.sub_name as codeNm
+            from public."TB_ERP_CODE000" a , public."TB_ERP_CODE100_BACKUP" b
+            where a.main_code = b.main_code  and a.main_code ='ONLINE_SERVICE_STATUS'
         ]]>
     </select>
 
-    <!-- select boxes-->
+    <!-- 회원 관리 정보  -->
+    <select id="setUserInfoGridList" resultType="userInfoVO">
+        <![CDATA[
+            select
+                row_number() over(order by b.created_at desc) as rnum,
+                b.froebel_cust_cd as custCd,
+                a.user_nm as userNm,
+                c.children_nm as childNm,
+                d.f_stu_id as fCid,
+                d.f_parent_id as fPid,
+                a.goods_nm as goodNm,
+                a.addr as addr,
+                a.hp_no1 as hno1,
+                a.hp_no2 as hno2,
+                fn_basecode('STU_STAT', c.stu_stat, '') as stuStat,
+                b.created_at as createAt,
+                fn_basecode('AGREEMENT_CD', b.agreement_cd, '') as agreementNM
+            FROM
+                vi_crm_cust_desc a
+                    LEFT OUTER JOIN
+                public."TB_ERP_MEMBER100" b  ON A.CUST_CD = B.CUST_CD
+                    LEFT OUTER JOIN
+                public."TB_ERP_MEMBER200" c  ON A.CUST_CD = C.CUST_CD
+                    left outer join
+                "FO_LCMS_TEST"."TA_STUDENT" d on A.cust_cd = d.f_contract_cd
+
+        ]]>
+    </select>
 
 </mapper>
